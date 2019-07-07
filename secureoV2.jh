@@ -1,0 +1,103 @@
+
+entity Location {
+	streetAddress String,
+	postalCode String,
+	city String,
+	stateProvince String
+}
+
+entity Department {
+	departmentName String required
+}
+
+entity Supplier {
+	supplierName String required
+}
+
+entity Employee {
+
+	firstName String required,
+	lastName String required,
+	email String required,
+	phoneNumber String,
+	hireDate Instant,
+    grade Grade required,
+    jobTitle JobTitle required
+}
+
+entity Orders {
+	status String,
+    total Double
+    status OrderStatus
+}
+
+entity OrderItem {
+	quantity Integer,
+    totalPrice Double
+}
+
+entity Product {
+	description String,
+    disabled Boolean,
+    model String,
+    productcode String required,
+    productname String required,
+    productPrice Double required,
+    size String,
+    sizeDescription String,
+    inStock Integer
+}
+
+entity Category {
+	categoryDescription String,
+    categoryName String required
+}
+
+enum Grade {
+ I2, I3, II1, II2, II3, III1, III2, III3
+}
+
+enum JobTitle {
+	POSTMAN, MAIL_AGENT, HANDLER, DELIVERER, MANAGER
+}
+
+enum OrderStatus {
+	CREATED,
+    REJECTED,
+    ACCEPTED,
+    SHIPPED,
+    DELIVERED
+}
+
+relationship OneToOne {
+	Department{location} to Location,
+    Supplier{location} to Location
+}
+
+// defining multiple OneToMany relationships with comments
+relationship OneToMany {
+	Department{employee} to	Employee,
+    Employee{orders} to Orders,
+    Category{product} to Product{category},
+    Supplier{product} to Product{supplier}
+    
+}
+
+relationship ManyToOne {
+	Employee{manager} to Employee,
+    OrderItem{product} to Product,
+    OrderItem{order} to Orders
+}
+
+
+// Set pagination options
+paginate * with pagination
+
+// Use Data Transfert Objects (DTO)
+dto * with mapstruct
+
+// Set service options to all except few
+service all with serviceImpl
+
+// Set an angular suffix
+// angularSuffix * with mySuffix

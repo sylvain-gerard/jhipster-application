@@ -1,0 +1,31 @@
+{
+    "name": "Orders",
+    "fields": [
+        {
+            "fieldName": "status",
+            "fieldType": "OrderStatus",
+            "fieldValues": "CREATED,REJECTED,ACCEPTED,SHIPPED,DELIVERED"
+        },
+        {
+            "fieldName": "total",
+            "fieldType": "Double"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipName": "employee",
+            "otherEntityName": "employee",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20190707204320",
+    "entityTableName": "orders",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

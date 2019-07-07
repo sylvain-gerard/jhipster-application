@@ -1,0 +1,105 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-product-heading">Create or edit a Product</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!editForm.get('id').value">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id"
+                        readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_description">Description</label>
+                    <input type="text" class="form-control" name="description" id="field_description"
+                           formControlName="description"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_disabled">Disabled</label>
+                    <input type="checkbox" class="form-control" name="disabled" id="field_disabled"
+                           formControlName="disabled"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_model">Model</label>
+                    <input type="text" class="form-control" name="model" id="field_model"
+                           formControlName="model"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_productcode">Productcode</label>
+                    <input type="text" class="form-control" name="productcode" id="field_productcode"
+                           formControlName="productcode"/>
+                    <div *ngIf="editForm.get('productcode').invalid && (editForm.get('productcode').dirty || editForm.get('productcode').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('productcode').errors.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_productname">Productname</label>
+                    <input type="text" class="form-control" name="productname" id="field_productname"
+                           formControlName="productname"/>
+                    <div *ngIf="editForm.get('productname').invalid && (editForm.get('productname').dirty || editForm.get('productname').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('productname').errors.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_productPrice">Product Price</label>
+                    <input type="number" class="form-control" name="productPrice" id="field_productPrice"
+                           formControlName="productPrice"/>
+                    <div *ngIf="editForm.get('productPrice').invalid && (editForm.get('productPrice').dirty || editForm.get('productPrice').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('productPrice').errors.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.get('productPrice')?.errors?.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_size">Size</label>
+                    <input type="text" class="form-control" name="size" id="field_size"
+                           formControlName="size"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_sizeDescription">Size Description</label>
+                    <input type="text" class="form-control" name="sizeDescription" id="field_sizeDescription"
+                           formControlName="sizeDescription"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_inStock">In Stock</label>
+                    <input type="number" class="form-control" name="inStock" id="field_inStock"
+                           formControlName="inStock"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_category">Category</label>
+                    <select class="form-control" id="field_category" name="category" formControlName="categoryId">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="categoryOption.id" *ngFor="let categoryOption of categories; trackBy: trackCategoryById">{{categoryOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_supplier">Supplier</label>
+                    <select class="form-control" id="field_supplier" name="supplier" formControlName="supplierId">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="supplierOption.id" *ngFor="let supplierOption of suppliers; trackBy: trackSupplierById">{{supplierOption.id}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
